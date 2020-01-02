@@ -1,0 +1,8 @@
+input[type="text"].normal {
+    border: 1px solid #ccc;
+    transition: border .2s linear;
+}
+
+input[type="text"].error {
+    border: 1px solid #f00;
+}
