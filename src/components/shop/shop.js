@@ -9,7 +9,7 @@ import { Loader } from "./loader";
 
 export const Shop = () => {
 	return (
-		<div>
+		<>
 			<Infoline />
 
 			<Nav />
@@ -23,6 +23,6 @@ export const Shop = () => {
 			<Footer />
 
 			<Loader />
-		</div>
+		</>
 	)
 };
