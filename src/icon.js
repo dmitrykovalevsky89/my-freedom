@@ -1,5 +1,5 @@
-import React from 'react';
+import React from "react";
 
 export const Icon = ({ name, children }) => (
-	<i className={`fa fa-${name}`}>{children}</i>
+  <i className={`fa fa-${name}`}>{children}</i>
 );

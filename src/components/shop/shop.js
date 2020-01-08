@@ -8,21 +8,21 @@ import { Footer } from "./footer";
 import { Loader } from "./loader";
 
 export const Shop = () => {
-	return (
-		<>
-			<Infoline />
+  return (
+    <>
+      <Infoline />
 
-			<Nav />
+      <Nav />
 
-			<Slider />
+      <Slider />
 
-			<Catalog />
+      <Catalog />
 
-			<Subscribe />
+      <Subscribe />
 
-			<Footer />
+      <Footer />
 
-			<Loader />
-		</>
-	)
+      <Loader />
+    </>
+  );
 };
