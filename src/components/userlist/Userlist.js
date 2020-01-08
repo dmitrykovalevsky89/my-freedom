@@ -1,4 +1,9 @@
 import React from "react";
+import { AddListItem } from "./AddListItem";
+
+function addUser(users, userToAdd) {
+  return [...users, userToAdd];
+}
 
 export class Userlist extends React.Component {
   state = {
@@ -21,6 +26,8 @@ export class Userlist extends React.Component {
     ]
   };
 
+  nextId = 4;
+
   render() {
     return (
       <>
@@ -42,6 +49,21 @@ export class Userlist extends React.Component {
             ))}
           </tbody>
         </table>
+        <AddListItem
+            onSave={ (userName, userPhone) => {
+              const user = {
+                id: this.nextId,
+                name: userName,
+                phone: userPhone
+              };
+
+              this.setState({
+                users: addUser(this.state.users, user)
+              });
+
+              this.nextId++;
+            }}
+        />
       </>
     );
   }
