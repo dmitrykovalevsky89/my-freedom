@@ -26,10 +26,12 @@ export class Userlist extends React.Component {
           name: "Name 3",
           phone: "+375291234569"
         }
-      ]
+      ],
+      itemToEdit: null
     };
 
     this.deleteItem = this.deleteItem.bind(this);
+    this.editItem = this.editItem.bind(this);
   }
 
   deleteItem(index) {
@@ -41,9 +43,15 @@ export class Userlist extends React.Component {
     });
   }
 
+  editItem(index) {}
+
   nextId = 4;
 
   render() {
+    if (this.state.itemToEdit) {
+      return <>edit page</>;
+    }
+
     return (
       <>
         <table>
@@ -52,6 +60,7 @@ export class Userlist extends React.Component {
               <th>ID</th>
               <th>Name</th>
               <th>Phone</th>
+              <th>Edit</th>
               <th>Delete</th>
             </tr>
           </thead>
@@ -61,6 +70,9 @@ export class Userlist extends React.Component {
                 <td>{user.id}</td>
                 <td>{user.name}</td>
                 <td>{user.phone}</td>
+                <td>
+                  <button onClick={() => this.editItem(index)}>Edit</button>
+                </td>
                 <td>
                   <button onClick={() => this.deleteItem(index)}>Delete</button>
                 </td>
