@@ -1,8 +1,27 @@
 import React from "react";
 import { AddListItem } from "./AddListItem";
+import { FormEdit } from "./FormEdit";
 
 function addUser(users, userToAdd) {
   return [...users, userToAdd];
+}
+
+function updateUsers(users, id, fieldToUpdate) {
+  // Алгоритм обновления такой
+  // 1. Копируем весь массив до той задачи, которую нужно изменеить
+  // 2. Задачу которую нужно изменить копируем, у копии меняем нужные поля
+  // 3. Копию задачи дописываем в копию массива
+  // 4. Копируем в массив-копию остаток оригинального массива - все задачи после той, которую нужно обновить
+
+  const userIndex = users.findIndex(user => user.id === id); // находим индекс задачи, которую надо обновить по ее id
+  const userToUpdate = users[userIndex];
+  const userCopy = { ...userToUpdate, ...fieldToUpdate }; // копируем задачу которую надо обновить и меняем у нее поля
+
+  return [
+    ...users.slice(0, userIndex), // копируем массив до обновляемой задачи
+    userCopy, // вставляем копию обновленной задачи
+    ...users.slice(userIndex + 1) // копируем остаток массива
+  ];
 }
 
 export class Userlist extends React.Component {
@@ -43,41 +62,69 @@ export class Userlist extends React.Component {
     });
   }
 
-  editItem(index) {}
+  editItem(userId) {
+    this.setState({
+      itemToEdit: userId
+    });
+  }
 
   nextId = 4;
 
   render() {
     if (this.state.itemToEdit) {
-      return <>edit page</>;
-    }
+      return (
+        <FormEdit
+          nameUser={
+            this.state.users.find(user => user.id === this.state.itemToEdit).name
+          }
+          phoneUser={
+            this.state.users.find(user => user.id === this.state.itemToEdit).phone
+          }
+          onSave={(name, phone) => {
+            const copy = updateUsers(this.state.users, this.state.itemToEdit, {
+              name,
+              phone
+            });
 
+            this.setState({
+              users: copy, // заменяем задачи обновленной копией
+              itemToEdit: null // обнуляем редактируемую задачу, чтобы спрятать форму редактирования и показать список задач
+            });
+          }}
+          onCancel={ () => (
+            this.setState({
+              itemToEdit: null
+            })
+          )}
+        />
+      );
+    }
     return (
       <>
         <table>
           <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Phone</th>
-              <th>Edit</th>
-              <th>Delete</th>
-            </tr>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
           </thead>
           <tbody>
-            {this.state.users.map((user, index) => (
-              <tr key={index}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.phone}</td>
-                <td>
-                  <button onClick={() => this.editItem(index)}>Edit</button>
-                </td>
-                <td>
-                  <button onClick={() => this.deleteItem(index)}>Delete</button>
-                </td>
-              </tr>
-            ))}
+          {this.state.users.map((user, index) => (
+            <tr key={index}>
+              <td>{user.id}</td>
+              <td>{user.name}</td>
+              <td>{user.phone}</td>
+              <td>
+                <button onClick={() => this.editItem(user.id)}>Edit</button>
+              </td>
+              <td>
+                <button onClick={() => this.deleteItem(index)}>Delete</button>
+              </td>
+            </tr>
+          ))}
           </tbody>
         </table>
         <AddListItem
