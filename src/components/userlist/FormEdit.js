@@ -6,7 +6,8 @@ export class FormEdit extends React.Component {
 
     this.state = {
       name: this.props.nameUser,
-      phone: this.props.phoneUser
+      phone: this.props.phoneUser,
+      status: this.props.statusUser
     };
 
     this.handleSave = this.handleSave.bind(this);
@@ -16,12 +17,14 @@ export class FormEdit extends React.Component {
     if (
       this.state.name &&
       this.state.name.trim() &&
-      this.state.phone && this.state.phone.trim()
+      this.state.phone &&
+      this.state.phone.trim()
     ) {
-      this.props.onSave(this.state.name, this.state.phone);
+      this.props.onSave(this.state.name, this.state.phone, this.state.status);
       this.setState({
         name: "",
-        phone: ""
+        phone: "",
+        status: "не покупал"
       });
     }
   }
@@ -34,6 +37,7 @@ export class FormEdit extends React.Component {
             <tr>
               <th>Name</th>
               <th>Phone</th>
+              <th>Status</th>
               <th>&nbsp;</th>
               <th>&nbsp;</th>
             </tr>
@@ -44,9 +48,9 @@ export class FormEdit extends React.Component {
                 <input
                   type="text"
                   value={this.state.name}
-                  onChange={e =>
+                  onChange={evt =>
                     this.setState({
-                      name: e.target.value
+                      name: evt.target.value
                     })
                   }
                 />
@@ -55,12 +59,28 @@ export class FormEdit extends React.Component {
                 <input
                   type="text"
                   value={this.state.phone}
-                  onChange={e =>
+                  onChange={evt =>
                     this.setState({
-                      phone: e.target.value
+                      phone: evt.target.value
                     })
                   }
                 />
+              </td>
+              <td>
+                <select
+                  value={this.state.status}
+                  onChange={evt =>
+                    this.setState({
+                      status: evt.target.value
+                    })
+                  }
+                >
+                  <option value="не покупал">не покупал</option>
+                  <option value="одна покупка">одна покупка</option>
+                  <option value="больше одной покупки">
+                    больше одной покупки
+                  </option>
+                </select>
               </td>
               <td>
                 <button onClick={this.handleSave}>Save</button>

@@ -40,13 +40,13 @@ export class Userlist extends React.Component {
           id: 2,
           name: "Name 2",
           phone: "+375291234568",
-          status: "не покупал"
+          status: "одна покупка"
         },
         {
           id: 3,
           name: "Name 3",
           phone: "+375291234569",
-          status: "не покупал"
+          status: "больше одной покупки"
         }
       ],
       itemToEdit: null
@@ -78,15 +78,22 @@ export class Userlist extends React.Component {
       return (
         <FormEdit
           nameUser={
-            this.state.users.find(user => user.id === this.state.itemToEdit).name
+            this.state.users.find(user => user.id === this.state.itemToEdit)
+              .name
           }
           phoneUser={
-            this.state.users.find(user => user.id === this.state.itemToEdit).phone
+            this.state.users.find(user => user.id === this.state.itemToEdit)
+              .phone
           }
-          onSave={(name, phone) => {
+          statusUser={
+            this.state.users.find(user => user.id === this.state.itemToEdit)
+              .status
+          }
+          onSave={(name, phone, status) => {
             const copy = updateUsers(this.state.users, this.state.itemToEdit, {
               name,
-              phone
+              phone,
+              status
             });
 
             this.setState({
@@ -94,11 +101,11 @@ export class Userlist extends React.Component {
               itemToEdit: null // обнуляем редактируемую задачу, чтобы спрятать форму редактирования и показать список задач
             });
           }}
-          onCancel={ () => (
+          onCancel={() =>
             this.setState({
               itemToEdit: null
             })
-          )}
+          }
         />
       );
     }
@@ -106,30 +113,30 @@ export class Userlist extends React.Component {
       <>
         <table>
           <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Status</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Status</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
           </thead>
           <tbody>
-          {this.state.users.map((user, index) => (
-            <tr key={index}>
-              <td>{user.id}</td>
-              <td>{user.name}</td>
-              <td>{user.phone}</td>
-              <td>{user.status}</td>
-              <td>
-                <button onClick={() => this.editItem(user.id)}>Edit</button>
-              </td>
-              <td>
-                <button onClick={() => this.deleteItem(index)}>Delete</button>
-              </td>
-            </tr>
-          ))}
+            {this.state.users.map((user, index) => (
+              <tr key={index}>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.phone}</td>
+                <td>{user.status}</td>
+                <td>
+                  <button onClick={() => this.editItem(user.id)}>Edit</button>
+                </td>
+                <td>
+                  <button onClick={() => this.deleteItem(index)}>Delete</button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <AddListItem
