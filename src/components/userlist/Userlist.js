@@ -33,17 +33,20 @@ export class Userlist extends React.Component {
         {
           id: 1,
           name: "Name 1",
-          phone: "+375291234567"
+          phone: "+375291234567",
+          status: "не покупал"
         },
         {
           id: 2,
           name: "Name 2",
-          phone: "+375291234568"
+          phone: "+375291234568",
+          status: "не покупал"
         },
         {
           id: 3,
           name: "Name 3",
-          phone: "+375291234569"
+          phone: "+375291234569",
+          status: "не покупал"
         }
       ],
       itemToEdit: null
@@ -107,6 +110,7 @@ export class Userlist extends React.Component {
             <th>ID</th>
             <th>Name</th>
             <th>Phone</th>
+            <th>Status</th>
             <th>Edit</th>
             <th>Delete</th>
           </tr>
@@ -117,6 +121,7 @@ export class Userlist extends React.Component {
               <td>{user.id}</td>
               <td>{user.name}</td>
               <td>{user.phone}</td>
+              <td>{user.status}</td>
               <td>
                 <button onClick={() => this.editItem(user.id)}>Edit</button>
               </td>
@@ -128,11 +133,12 @@ export class Userlist extends React.Component {
           </tbody>
         </table>
         <AddListItem
-          onSave={(userName, userPhone) => {
+          onSave={(userName, userPhone, userStatus) => {
             const user = {
               id: this.nextId,
               name: userName,
-              phone: userPhone
+              phone: userPhone,
+              status: userStatus
             };
 
             this.setState({

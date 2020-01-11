@@ -1,10 +1,23 @@
 import React from "react";
 
 export class AddListItem extends React.Component {
-	state = {
-		name: "",
-		phone: ""
-	};
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			name: "",
+			phone: "",
+			status: "не покупал"
+		};
+
+		this.handleChange = this.handleChange.bind(this);
+	}
+
+	handleChange(evt) {
+		this.setState({
+			status: evt.target.value
+		});
+	}
 
 	render() {
 		return (
@@ -27,11 +40,16 @@ export class AddListItem extends React.Component {
 						})
 					)}
 				/>
+				<select onChange={this.handleChange} value={this.state.status}>
+					<option value="не покупал">не покупал</option>
+					<option value="одна покупка">одна покупка</option>
+					<option value="больше одной покупки">больше одной покупки</option>
+				</select>
 				<button
 					onClick={() => {
 						if ( (this.state.name && this.state.name.trim()) && (this.state.phone && this.state.phone.trim()) ) {
-							this.props.onSave(this.state.name, this.state.phone);
-							this.setState({ name: "", phone: "" });
+							this.props.onSave(this.state.name, this.state.phone, this.state.status);
+							this.setState({ name: "", phone: "", status: "не покупал" });
 						}
 					}}
 				>
