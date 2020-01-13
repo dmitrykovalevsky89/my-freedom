@@ -50,7 +50,8 @@ export class AddListItem extends React.Component {
             if (
               this.state.name &&
               this.state.name.trim() &&
-              this.state.phone && this.state.phone.trim()
+              this.state.phone &&
+              this.state.phone.trim()
             ) {
               this.props.onSave(
                 this.state.name,
@@ -63,6 +64,7 @@ export class AddListItem extends React.Component {
         >
           Add
         </button>
+        <button onClick={() => this.props.onCancel()}>Cancel</button>
       </form>
     );
   }

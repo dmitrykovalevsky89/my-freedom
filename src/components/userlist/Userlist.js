@@ -49,7 +49,8 @@ export class Userlist extends React.Component {
           status: "больше одной покупки"
         }
       ],
-      itemToEdit: null
+      itemToEdit: null,
+      itemToAdd: null
     };
 
     this.deleteItem = this.deleteItem.bind(this);
@@ -71,10 +72,41 @@ export class Userlist extends React.Component {
     });
   }
 
+  addItem() {
+    this.setState({
+      itemToAdd: true
+    });
+  }
+
   nextId = 4;
 
   render() {
-    if (this.state.itemToEdit) {
+    if (this.state.itemToAdd) {
+      return (
+        <AddListItem
+          onSave={(userName, userPhone, userStatus) => {
+            const user = {
+              id: this.nextId,
+              name: userName,
+              phone: userPhone,
+              status: userStatus
+            };
+
+            this.setState({
+              users: addUser(this.state.users, user),
+              itemToAdd: null
+            });
+
+            this.nextId++;
+          }}
+          onCancel={() =>
+            this.setState({
+              itemToAdd: null
+            })
+          }
+        />
+      );
+    } else if (this.state.itemToEdit) {
       return (
         <FormEdit
           nameUser={
@@ -111,6 +143,7 @@ export class Userlist extends React.Component {
     }
     return (
       <>
+        <button onClick={() => this.addItem()}>Add new user</button>
         <table>
           <thead>
             <tr>
@@ -139,22 +172,6 @@ export class Userlist extends React.Component {
             ))}
           </tbody>
         </table>
-        <AddListItem
-          onSave={(userName, userPhone, userStatus) => {
-            const user = {
-              id: this.nextId,
-              name: userName,
-              phone: userPhone,
-              status: userStatus
-            };
-
-            this.setState({
-              users: addUser(this.state.users, user)
-            });
-
-            this.nextId++;
-          }}
-        />
       </>
     );
   }
