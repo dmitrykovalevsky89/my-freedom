@@ -1,23 +1,15 @@
 import React from "react";
 
-export class AddListItem extends React.Component {
-  constructor(props) {
-    super(props);
+export class AddClientForm extends React.Component {
+  state = {
+    name: "",
+    phone: "",
+    status: "null"
+  };
 
-    this.state = {
-      name: "",
-      phone: "",
-      status: "не покупал"
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(evt) {
-    this.setState({
-      status: evt.target.value
-    });
-  }
+  handleChange = evt => {
+    this.setState({ status: evt.target.value });
+  };
 
   render() {
     return (
@@ -41,9 +33,9 @@ export class AddListItem extends React.Component {
           }
         />
         <select onChange={this.handleChange} value={this.state.status}>
-          <option value="не покупал">не покупал</option>
-          <option value="одна покупка">одна покупка</option>
-          <option value="больше одной покупки">больше одной покупки</option>
+          <option value="null">не покупал</option>
+          <option value="one">одна покупка</option>
+          <option value="more">больше одной покупки</option>
         </select>
         <button
           onClick={() => {
@@ -58,7 +50,7 @@ export class AddListItem extends React.Component {
                 this.state.phone,
                 this.state.status
               );
-              this.setState({ name: "", phone: "", status: "не покупал" });
+              this.setState({ name: "", phone: "", status: "null" });
             }
           }}
         >

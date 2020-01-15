@@ -1,19 +1,17 @@
 import React from "react";
 
-export class FormEdit extends React.Component {
+export class EditClientForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: this.props.nameUser,
-      phone: this.props.phoneUser,
-      status: this.props.statusUser
+      name: this.props.clientObj.name,
+      phone: this.props.clientObj.phone,
+      status: this.props.clientObj.status
     };
-
-    this.handleSave = this.handleSave.bind(this);
   }
 
-  handleSave() {
+  handleSave = () => {
     if (
       this.state.name &&
       this.state.name.trim() &&
@@ -24,10 +22,10 @@ export class FormEdit extends React.Component {
       this.setState({
         name: "",
         phone: "",
-        status: "не покупал"
+        status: "null"
       });
     }
-  }
+  };
 
   render() {
     return (
@@ -75,9 +73,9 @@ export class FormEdit extends React.Component {
                     })
                   }
                 >
-                  <option value="не покупал">не покупал</option>
-                  <option value="одна покупка">одна покупка</option>
-                  <option value="больше одной покупки">
+                  <option value="null">не покупал</option>
+                  <option value="one">одна покупка</option>
+                  <option value="more">
                     больше одной покупки
                   </option>
                 </select>

@@ -5,12 +5,12 @@ import "./index.css";
 import { Shop } from "./components/shop/shop";
 import Input from "./components/input/input";
 import Navbar from "./components/navbar/navbar";
-import { Userlist } from "./components/userlist/Userlist";
+import { ClientList } from "./components/clientlist/ClientList";
 import * as serviceWorker from "./serviceWorker";
 import classNames from "classnames";
 
-// Userlist
-ReactDOM.render(<Userlist />, document.getElementById("root"));
+// ClientList
+ReactDOM.render(<ClientList />, document.getElementById("root"));
 
 // Shop
 // ReactDOM.render(<Shop />, document.getElementById("root"));
