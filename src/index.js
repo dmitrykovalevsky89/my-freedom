@@ -5,11 +5,15 @@ import "./index.css";
 import { Shop } from "./components/shop/shop";
 import Input from "./components/input/input";
 import Navbar from "./components/navbar/navbar";
+import { ClientList } from "./components/clientlist/ClientList";
 import * as serviceWorker from "./serviceWorker";
 import classNames from "classnames";
 
+// ClientList
+ReactDOM.render(<ClientList />, document.getElementById("root"));
+
 // Shop
-ReactDOM.render(<Shop />, document.getElementById("root"));
+// ReactDOM.render(<Shop />, document.getElementById("root"));
 
 // Input
 // ReactDOM.render(<Input />, document.getElementById('root'));
