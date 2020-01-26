@@ -9,10 +9,10 @@ import { ClientList } from "./components/clientlist/ClientList";
 import * as serviceWorker from "./serviceWorker";
 import classNames from "classnames";
 import { TasksContainer } from "./pages/tasks/TasksContainer";
-import { InboxList } from "./pages/inbox/InboxList";
+import App from "./App";
 
 // Task List
-ReactDOM.render(<InboxList />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // ClientList
 // ReactDOM.render(<ClientList />, document.getElementById("root"));
