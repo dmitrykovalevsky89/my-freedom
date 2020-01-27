@@ -5,24 +5,43 @@ import { Col, Form } from "react-bootstrap";
   В первом задании нужно реализовать компонент State, который использует шаблон
   render prop. Он передает в функцию состояние и функцию его изменения. Так же
 */
+/*
+	Для выполнения задания нужно заменить state и setState.
+	Начальное значение state, которое будет использовано при первом рендеринге
+	надо взять из this.props.initialState по таким правилам:
+	- если initialState не задан, то начально значение state - {} (пустой объект)
+	- если initialState объект (не функция, не массив) то state - копия initalState
+	- если initialState не объект (примитивное значение, массив, функция), то state
+		будет {value: this.props.initialState}
+	Для того, чтобы отличить объекты, созданные с помощью {} от других объектов
+	(массивов, функций, Date и т.п.) воспользуйтесь функцией isPlainObject
+	(https://gomakethings.com/how-to-check-if-something-is-an-object-with-vanilla-javascript/)
+*/
 
 class State extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: (this.props.initialState !== '') ? ((Object.prototype.toString.call(this.props.initialState) === '[object Object]') ? {...this.props.initialState} : this.props.initialState) : {}
+    };
+  }
+
+  handleChange(prop) {
+    let val = prop.value || prop; // тут возможно нужна другая проверка, а возможно вообще не верный подход
+
+    this.setState({
+      value: val
+    });
+  };
+
   render() {
     return this.props.children({
-      /* 
-        Для выполнения задания нужно заменить state и setState.
-        Начальное значение state, которое будет использовано при первом рендеринге
-        надо взять из this.props.initialState по таким правилам:
-        - если initialState не задан, то начально значение state - {} (пустой объект) 
-        - если initialState объект (не функция, не массив) то state - копия initalState
-        - если initialState не объект (примитивное значение, массив, функция), то state 
-          будет {value: this.props.initialState}
-        Для того, чтобы отличить объекты, созданные с помощью {} от других объектов 
-        (массивов, функций, Date и т.п.) воспользуйтесь функцией isPlainObject 
-        (https://gomakethings.com/how-to-check-if-something-is-an-object-with-vanilla-javascript/)
-      */
-      state: {},
-      setState: () => {}
+      state: {
+        value: this.state.value
+      },
+      setState: (props) => {
+        this.handleChange(props);
+      }
     });
   }
 }
