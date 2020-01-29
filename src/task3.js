@@ -33,6 +33,8 @@ const dictionaries = {
 
 const languages = ["EN", "DE", "RU"];
 
+const LanguageContext = React.createContext("RU");
+
 /*
   children - строка с текстом.
   Используя контекст, LocalizedText должен получить доступ к словарю, 
@@ -40,7 +42,26 @@ const languages = ["EN", "DE", "RU"];
   Если перевода нет, как, например, для Clear на немецком, должна показываться
   оригинальная строка на английском.
 */
-const LocalizedText = ({ children }) => children;
+// const LocalizedText = ({ children }) => children;
+
+class LocalizedText extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      "EN": dictionaries.en,
+      "DE": dictionaries.de,
+      "RU": dictionaries.ru
+    };
+  }
+
+  static contextType = LanguageContext;
+
+  render() {
+    return <>{this.state[this.context][this.props.children]}</>;
+  }
+
+}
 
 LocalizedText.propTypes = {
   children: PropTypes.string.isRequired
@@ -113,7 +134,9 @@ class LocalizedApp extends React.Component {
           />
         </Col>
         <Col>
-          <UserForm />
+          <LanguageContext.Provider value={this.state.language}>
+            <UserForm />
+          </LanguageContext.Provider>
         </Col>
       </>
     );
