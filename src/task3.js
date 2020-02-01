@@ -58,7 +58,7 @@ class LocalizedText extends React.Component {
   static contextType = LanguageContext;
 
   render() {
-    return <>{this.state[this.context][this.props.children]}</>;
+    return <>{this.state[this.context][this.props.children] ? this.state[this.context][this.props.children] : this.state["EN"][this.props.children]}</>;
   }
 
 }
